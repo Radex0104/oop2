@@ -12,7 +12,7 @@ Data * DM ;
 Data::Data()
 {
     QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
-    sdb.setDatabaseName("telbook.db");
+    sdb.setDatabaseName("telbook.s3db");
 
     if (!sdb.open()) {
           qDebug() << sdb.lastError().text();
@@ -22,14 +22,17 @@ Data::Data()
 QList<Contact*> Data::createClientList()
 {
     QList<Contact*> res ;
-    QSqlQuery query("SELECT id,cfamily,cname,email FROM contacts");
+    QSqlQuery query("CREATE TABLE "
+                       "ContactBook(id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Family TEXT, PhoneNumber TEXT,  FOREIGN KEY (GroupID) REFERENCES Groups(id))");
+
+   // QSqlQuery query("SELECT id,cfamily,cname,email FROM contacts");
     while (query.next()) {
-             Contact * contact = new Contact() ;
+             QSharedPointer<Contact> contact(new Contact());
              contact->id=query.value(0).toInt() ;
              contact->Family=query.value(1).toString();
              contact->Name=query.value(2).toString();
              contact->email=query.value(3).toString();
-             res.append(contact);
+             res.append(contact.data());
     }
 qDebug()<<res;
     return res ;

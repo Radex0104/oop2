@@ -4,7 +4,7 @@ Get2 * OM ;
 
 Get2::Get2()
 {
-
+    NullClient = new Contact() ;
 }
 Contact *Get2::findClientById(int id)
 {

@@ -20,41 +20,38 @@ Dialog::Dialog(QWidget *parent)
 
 Dialog::~Dialog()
 {
+    delete DM;
     delete ui;
 }
 
 void Dialog::on_ButNewBook_clicked()
 {
-    Contact * contact = new Contact() ;
-
-    NewEdit * d = new NewEdit(this) ;
+    QSharedPointer<Contact> contact(new Contact());
+    QSharedPointer<NewEdit> d(new NewEdit(this));
     d->setWindowTitle("Новый клиент");
-    d->setContact(contact) ;
-    d->exec() ;
-    OM->contacts.append(contact);
-    DM->insertClient(contact) ;
-    clients2grid() ;
-    qDebug() << contact;
-    delete d ;
+    d->setContact(contact.data());
+    d->exec();
+    OM->contacts.append(contact.data());
+    DM->insertClient(contact.data());
+    clients2grid();
+    qDebug() << contact.data();
 }
 
 void Dialog::on_ButEdit_clicked()
 {
-    if (ui->table->currentRow()==-1) {
-        QMessageBox::information(this,"Ошибка","Не выбран клиент") ;
-        return ;
+    if (ui->table->currentRow() == -1) {
+        QMessageBox::information(this, "Ошибка", "Не выбран клиент");
+        return;
     }
 
-    Contact * client = OM->contacts[ui->table->currentRow()] ;
+    QSharedPointer<Contact> client(OM->contacts[ui->table->currentRow()]);
 
-    NewEdit * d = new NewEdit(this) ;
-    d->setWindowTitle("Коррекция клиента");
-    d->setContact(client) ;
-    d->exec() ;
-    DM->updateClient(client) ;
-    clients2grid() ;
-
-    delete d ;
+    QSharedPointer<NewEdit> d(new NewEdit(this));
+    d->setWindowTitle("Изменить");
+    d->setContact(client.data());
+    d->exec();
+    DM->updateClient(client.data());
+    clients2grid();
 }
 
 void Dialog::clients2grid(bool filtered)
@@ -96,11 +93,10 @@ void Dialog::on_ButDel_clicked()
         QMessageBox::information(this,"Ошибка","Не выбран клиент") ;
         return ;
     }
+    QSharedPointer<Contact> client(OM->contacts[ui->table->currentRow()]);
 
-    Contact * client = OM->contacts[ui->table->currentRow()] ;
-
-    DM->deleteClient(client) ;
-    OM->contacts.removeAll(client) ;
+    DM->deleteClient(client.data()) ;
+    OM->contacts.removeAll(client.data()) ;
 
     clients2grid() ;
 
