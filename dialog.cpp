@@ -13,7 +13,9 @@ Dialog::Dialog(QWidget *parent)
     setWindowTitle("Телефонная книга") ;
 
     DM = new Data() ;
-    OM = new Get2() ;
+    //QSharedPointer<Data> DM(new Data());
+    //OM = new Get2() ;
+    QSharedPointer<Get2> OM(new Get2());
     OM->contacts = DM->createClientList() ;
     clients2grid();
 }

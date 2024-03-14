@@ -8,6 +8,7 @@
 #include "get2.h"
 
 Data * DM ;
+//QSharedPointer<Data> DM;
 
 Data::Data()
 {

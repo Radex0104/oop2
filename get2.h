@@ -3,6 +3,7 @@
 
 #include <QList>
 #include "contact.h"
+#include <QSharedPointer>
 class Get2
 {
 private:
@@ -12,5 +13,7 @@ public:
     QList<Contact*> contacts ;
     Contact *findClientById(int id) ;
 };
-extern Get2 * OM ;
+//extern Get2 * OM ;
+
+extern QSharedPointer<Get2> OM;
 #endif // GET2_H

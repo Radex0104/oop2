@@ -2,7 +2,7 @@
 #define CONTACT_H
 
 #include <QString>
-
+#include <QSharedPointer>
 class Contact
 {
 public:

@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "contact.h"
-
+#include <QSharedPointer>
 namespace Ui {
 class NewEdit;
 }

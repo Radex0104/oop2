@@ -3,6 +3,7 @@
 #include <QList>
 #include "contact.h"
 #include <QString>
+#include <QSharedPointer>
 class Data
 {
 public:
@@ -16,4 +17,5 @@ public:
     int getFirstIntFromSQL(QString sql) ;
 };
 extern Data * DM ;
+//extern QSharedPointer<Data> DM;
 #endif // DATA_H

@@ -1,7 +1,7 @@
 #include "get2.h"
+#include <QSharedPointer>
 
-Get2 * OM ;
-
+QSharedPointer<Get2> OM;
 Get2::Get2()
 {
     NullClient = new Contact() ;
